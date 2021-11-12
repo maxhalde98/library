@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+html, body, head {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    height: 15vh;
+    background-color:wheat;
+    color:rgb(9, 9, 41);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: min(7vw,72px);
+    white-space: nowrap;
+}
+
+.display-btn {
+    font-size: min(3vw, 28px);
+    background-color: rgb(9,9,41);
+    color: wheat;
+    font-weight: 700;
+    padding: 12px;
+    margin-left: 18px;
+    margin-right: 18px;
+    border-radius: 10px;
+}
+
+#invisible {
+    visibility: hidden;
+}
+
+#content {
+    background-color: rgb(9, 9, 41);
+    height: calc(85vh - 2px);
+    background-image: url("images/shelves-background.jpg");
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: solid 2px rgb(9,9,41);
+}
+
+.book-card {
+    color: white;
+    visibility: hidden;
+    white-space: pre-wrap;
+}
+
+
