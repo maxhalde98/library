@@ -14,40 +14,64 @@ html, body, head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: min(7vw,72px);
+    font-size: min(5vw,72px);
     white-space: nowrap;
+    flex-wrap: nowrap;
 }
 
-.display-btn {
+.btn {
     font-size: min(3vw, 28px);
     background-color: rgb(9,9,41);
     color: wheat;
     font-weight: 700;
-    padding: 12px;
+    padding: 8px;
     margin-left: 18px;
-    margin-right: 18px;
     border-radius: 10px;
 }
 
-#invisible {
-    visibility: hidden;
+#header-title {
+    margin:auto;
+    padding-left: 18px;
+    /* padding-right: 18px; */
 }
 
 #content {
     background-color: rgb(9, 9, 41);
-    height: calc(85vh - 2px);
+    min-height: calc(85vh - 62px);
     background-image: url("images/shelves-background.jpg");
     background-position: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     border-top: solid 2px rgb(9,9,41);
+    padding: 30px;
+    gap: 30px;
 }
 
 .book-card {
     color: white;
-    visibility: hidden;
     white-space: pre-wrap;
+    background-color: wheat;
+    border: solid 4px rgb(90, 11, 11);
+    color:rgb(9, 9, 41);
+    min-width: 200px;
+    max-width: 250px;
+    height: 40vh;
+    border-radius: 20px;
+    position: relative;
+    padding: 15px;
+    font-size: 24px;
 }
 
-
+#add-book-form {
+    padding: 32px;
+    background-color:skyblue;
+    color:rgb(9, 9, 41);
+    border: solid 4px rgb(90, 11, 11);
+    border-radius: 10px;
+    position: absolute;
+    align-self: flex-start;
+    margin-top: 100px;
+    z-index: 1;
+}

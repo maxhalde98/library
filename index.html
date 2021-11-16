@@ -8,11 +8,27 @@
     </head>
     <body>
         <div id="header">
-            <button class="display-btn" id="visible">My Books</button>
-            <div id="title">MY ONLINE LIBRARY</div>
-            <button class="display-btn" id="invisible">My Books</button>
+            <button class="btn" id ="visible">My Books</button>
+            <button class="btn" id="visible-add" style="margin-right: auto;">Add Book</button>
+            <div id="header-title">MY ONLINE LIBRARY</div>
+            <button class="btn" style="visibility: hidden; margin-left: auto;">Add Book</button>
+            <button class="btn" style="visibility: hidden; margin-left: auto;">My Books</button>
         </div>
         <div id="content">
+            <div id="add-book-form" style="display: none" !important>
+                <form id="add-form">
+                    <label for="title">Title: </label><br>
+                    <input type="text" id="title" name="title"><br><br>
+                    <label for="author">Author: </label><br>
+                    <input type="text" id="author" name="author"><br><br>
+                    <label for="num-pages">Number of pages: </label>
+                    <input type="number" id="num-pages" name="num-pages" style="width: 50px"><br><br>
+                    <label for="read">Read: </label>
+                    <input type="checkbox" id="read" name="read"><br><br>
+                    <button type="button" id="submit">Submit</button>
+                    <button type="button" id="cancel">Cancel</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
