@@ -1,5 +1,22 @@
 let myLibrary = [];
 
+if(localStorage.getItem('library') === null) {
+    populateStorage();
+}
+
+else {
+    retrieveFromStorage();
+}
+
+function populateStorage() {
+    localStorage.setItem('library', JSON.stringify(myLibrary));
+}
+
+function retrieveFromStorage() {
+    myJSON = localStorage.getItem('library');
+    myLibrary = JSON.parse(myJSON);
+}
+
 function Book(title, author, numPages, haveRead) {
     this.title = title;
     this.author = author;
@@ -14,12 +31,14 @@ function Book(title, author, numPages, haveRead) {
             str = title + ' by ' + author + ', ' + numPages + ' pages, not read yet';
         }
         return str;
-    }
+    };
 }
 
 function addBookToLibrary() {
     let book = arguments[0];
+    retrieveFromStorage()
     myLibrary.push(book);
+    populateStorage();
 }
 
 function displayBooks() {
@@ -38,10 +57,13 @@ const ADD_BOOK_FORM = document.querySelector('#add-form');
 const SUBMIT_BTN = document.querySelector('#submit');
 
 DISPLAY_BTN.addEventListener('click', () => {
-    DIV_CONTENT.style.backgroundImage = 'none';
-    if (DISPLAY_BTN.innerHTML === 'My Books') {
+    if (DISPLAY_BTN.innerHTML === 'My Books' && myLibrary.length !== 0) {
         populateContent();
+        DIV_CONTENT.style.backgroundImage = 'none';
         DISPLAY_BTN.innerHTML = 'Hide';
+    }
+    else if (myLibrary.length === 0) {
+        alert('You need to add some books to your library first!');
     }
     else {
         removeContent();
@@ -62,34 +84,35 @@ SUBMIT_BTN.addEventListener('click', () => {
     let title = ADD_BOOK_FORM.elements['title'].value;
     let author = ADD_BOOK_FORM.elements['author'].value;
     let numPages = ADD_BOOK_FORM.elements['num-pages'].value;
-    let read = ADD_BOOK_FORM.elements['read'].value;
+    let read = ADD_BOOK_FORM.elements['read'].checked;
 
     let book = new Book(title,author,numPages,read);
-    addBookToLibrary(book);
 
-    if (DISPLAY_BTN.innerHTML === 'My Books') {
-        DIV_CONTENT.style.backgroundImage = 'none';
-        addSingleBook(book);
+    let present = false;
+
+    myLibrary.forEach(libBook => {
+        if (libBook.title === book.title) {
+            present = true;
+        }
+    })
+    
+    if (present === true) {
+        alert('This book is already in your library!');
+    }
+    else {
+        addBookToLibrary(book);
+
+        if (DISPLAY_BTN.innerHTML === 'My Books') {
+            populateContent();
+        }
+
+        else {
+            addSingleBook(book);
+        }
     }
 
     ADD_FORM.style.display = 'none';
 })
-
-const HOBBIT = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
-const GOBLET_FIRE = new Book('Harry Potter and the Goblet of Fire', 'JK Rowling', 438, true);
-
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(HOBBIT);
-addBookToLibrary(GOBLET_FIRE);
 
 function newBookCard() {
     let book = arguments[0];
@@ -99,6 +122,7 @@ function newBookCard() {
 }
 
 function populateContent() {
+    retrieveFromStorage();
     myLibrary.forEach(book => {
         addSingleBook(book);
     })
@@ -112,6 +136,7 @@ function removeContent() {
 }
 
 function addSingleBook(book) {
+
     let bookCard = document.createElement('div');
     bookCard.innerHTML = newBookCard(book);
 
@@ -136,6 +161,36 @@ function addSingleBook(book) {
 
     bookCard.appendChild(removeBtn);
 
+    removeBtn.addEventListener('click', () => {
+        bookCard.remove();
+        retrieveFromStorage();
+        for (i=0; i<myLibrary.length; i++) {
+            if (book.title === myLibrary[i].title) {
+                myLibrary.splice(i,1);
+            }
+        }
+        populateStorage();
+        if (myLibrary.length === 0) {
+            DIV_CONTENT.style.backgroundImage = 'url("images/shelves-background.jpg")';
+            DISPLAY_BTN.innerHTML = 'My Books';
+        }
+    })
+
     bookCard.classList.add('book-card');
-    DIV_CONTENT.appendChild(bookCard);
+
+    let children = DIV_CONTENT.childNodes;
+
+    let present = false;
+
+    children.forEach(child => {
+        if (child.isEqualNode(bookCard)) {
+            present = true;
+        }
+    })
+
+    if (present === false) {
+        DIV_CONTENT.appendChild(bookCard);
+        DIV_CONTENT.style.backgroundImage = 'none';
+        DISPLAY_BTN.innerHTML = 'Hide';
+    }
 }
