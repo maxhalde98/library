@@ -17,12 +17,16 @@ function retrieveFromStorage() {
     myLibrary = JSON.parse(myJSON);
 }
 
-function Book(title, author, numPages, haveRead) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.haveRead = haveRead;
-    this.info = function () {
+class Book{
+
+    constructor(title, author, numPages, haveRead) {
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.haveRead = haveRead;
+    }
+
+    info() {
         let str = '';
         if (haveRead === true) {
             str = title + ' by ' + author + ', ' + numPages + ' pages, read';
